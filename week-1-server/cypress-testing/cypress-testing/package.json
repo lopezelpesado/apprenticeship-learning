@@ -1,0 +1,21 @@
+{
+	"name": "cypress-testing",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "cypress run",
+		"cy:open": "cypress open",
+		"dev": "nodemon server.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"cypress": "^8.5.0",
+		"nodemon": "^2.0.13"
+	},
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}
