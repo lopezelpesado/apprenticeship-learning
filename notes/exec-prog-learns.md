@@ -67,4 +67,9 @@
 - they are called character classes
 - uppercase negates them
 - again, can use `+` and `*` to match multiples
--
+
+### SQL: On conflict do nothing
+
+- SQL let's us specify what to do when there is a conflict, when a constraint is violated
+- after our potentially conflicted instruction can add `ON CONFLICT (COLUMN_NAME) DO NOTHING` to do nothing if there is a conflict
+- this is useful if you want to make sure a row exists and to do nothing if it does already exist
