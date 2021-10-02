@@ -35,3 +35,36 @@
 - should a column be a foreign key? `REFERENCES`
 - can a column be null? `NULL/NOT NULL`
 - can multiple rows have the same value for this thing? `UNIQUE`
+
+## 2/10/21
+
+### Regular Expressions: Basic character sets
+
+- or expressions can be used to recognize a whole set of characters
+- however `|` over and over is tiresome
+- can use a character set instead `[abc]`
+- can specify a range of characters with `[a-z]`
+- can escape to match literal ]s with `\]`
+- can negate to match stuff not in the set
+- use `^` but inside `[]`
+- negation applies to the whole set
+- also works with ranges
+- sets match only 1 character in a string
+- use `+` and `*` for more
+
+### Regular Expressions: Maybe
+
+- `?` matches a char 0 or 1 times but no more
+- matches what is immediately before it only
+- it binds tightly
+- combine with parens to match more characters
+- good for phone numbers
+
+### Regular Expressions: Basic character classes
+
+- `\d` recognises digits 0-9
+- `\s` whitespaces, space newline tabs etc
+- they are called character classes
+- uppercase negates them
+- again, can use `+` and `*` to match multiples
+-
