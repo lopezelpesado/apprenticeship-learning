@@ -73,3 +73,46 @@
 - SQL let's us specify what to do when there is a conflict, when a constraint is violated
 - after our potentially conflicted instruction can add `ON CONFLICT (COLUMN_NAME) DO NOTHING` to do nothing if there is a conflict
 - this is useful if you want to make sure a row exists and to do nothing if it does already exist
+
+## 4/10/21
+
+### SQL: Simple joins
+
+- foreign keys guarantee that rows in different tables can reference each other correctly
+- just `JOIN`ing 2 tables will give you a row for each combination rows in one table with the rows of the other table
+- we can use `ON` like `WHERE` to "join on" a certain pair of rows from the tables that are related, `SELECT * FROM people JOIN cats ON people.id = cats.owner_id`
+- `JOIN` is like 2 nested loops with a filter, `forEach(row in table 1 => {forEach(row in table 2) => {if (ON condition true for these 2 rows) {push(row with columns from this pair)}}})`
+- can `SELECT` just the columns you want but you have to specify the `table.column`
+- sometimes join order doesn't matter
+- sometimes it does when the db engine optomizes it badly, reordering might help
+- sometimes when there are duplicate column names
+- with duplicated column names, the last table in the `JOIN` wins
+- columns often have duplicate names across tables so best to alias every joined column with `AS`, best to write them on their own lines indented in the `SELECT`
+- `JOIN`s return a "relation" which has rows and columns that can be operated on
+- you can `JOIN` a relation to make another relation
+- SQL dbs are relational dbs
+- a table is a relation stored on the disk
+- a join creates a temporary relation
+- `SELECT 1` creates a relation
+- when we `WHERE` with joins, it filters the rows like it does normally and can see columns from both tables
+- if a row matches multiple rows in the other table, the join will return multiple rows for them
+- these `JOIN`s are also called `INNER JOIN`s
+- there are `OUTER JOIN`s
+
+### SQL: On conflict update
+
+- using js control flow to update rows if an entry already exists can work but not if those 2 requests come in quickly to 2 different servers and there can be a delay between 1 servers `SELECT` and another's `INSERT`
+- bugs from these sorts of problems are called race conditions
+- unlikely problems become more likely at scale
+- we can use `ON CONFLICT (column_name) DO UPDATE [...]` to tell the db to do something if there is a conflict
+- can replace the js logic with `ON CONFLICT`
+- the `ON CONFLICT` solution is more efficient as it requires less db queries
+
+### SQL: Join performance
+
+- `JOIN` is more efficient than trying to use js
+- trying to use js results in the "N+1 problem"
+- `JOIN` only needs 1 query to accomplish what can take js logic 1000s of iterations and lots of db queries
+- you can think of a `JOIN` like a nested loop but they don't work like that
+- the db optimises the query
+- dbs can optimise very complex queries
