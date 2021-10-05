@@ -116,3 +116,46 @@
 - you can think of a `JOIN` like a nested loop but they don't work like that
 - the db optimises the query
 - dbs can optimise very complex queries
+
+## 5/10/21
+
+### SQL: Left and right joins
+
+- `JOIN ... ON` doesn't work if we want to include something from the left side that has a null on the right side
+- we can use `LEFT JOIN` to make sure all the entries on the left get included whether or not they fulfill the `ON`
+- if they have a null on the right then `null` will be returned
+- right joins are the same thing but all the entries in the table on the right are returned instead of the left
+- left and right joins are less common than inner joins
+- useful when you want a list of all of one thing and all of another thing they may or may not have
+- left joins will produce all the combinations of rows that match, like with inner joins
+- these are also called right and left outer joins
+
+### SQL: Join mistakes
+
+- without an `ON`, you'll get every combo of the left rows with the right rows
+- easy to miss with a simple test case
+- if you're testing code that deals with arrays, write tests for 0, 1 and many elements
+- we need a similar approach for testing joins
+- never test a join by inserting only 1 row into each table
+- every test will pass even if the join is wrong
+- this will also help with accidentally flipping tables in a left join
+- joining on foreign keys means we don't have to worry about the case where the join condition has a value but doesn't match any value in the other table
+- though, we can write any `ON` that we want, even if it isn't a foreign key
+- we could join on the wrong id
+- thorough testing will help us avoid these mistakes
+- using table names when specifying columns in queries helps with spotting mistakes
+- SQL is good at preventing mistakes, but we still need to be careful
+- when testing a join, use more than 1 row in each table
+- when selecting users from a join, qualify selected columns with their table name
+
+### SQL: ON vs WHERE
+
+- we can put `WHERE` statements in `ON`s
+- we can also replace an `ON` with a `WHERE`
+- `ON` and `WHERE` are both performant
+- for inner joins, they are interchangeable
+- they are not for other types of joins like left joins
+- it is best to use a mix of `ON` and `WHERE` for readability
+- `ON` is which row from the left is supposed to go with the row on the right
+- stuff in `WHERE` is not about the tables' relationships
+- ask, is this condition about how the left table relates to the right or something else?
