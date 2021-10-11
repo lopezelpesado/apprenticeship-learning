@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "email": "lopez@lopez.lopez",
+      "password": "lopez",
+      "id": 1633958138545
+    },
+    {
+      "email": "lopez@thesecond.com",
+      "password": "0e66633604475ead7445c5e5f987d6450c23687eccf37665e3924541a7f8f6b3",
+      "id": 1633958563971
+    },
+    {
+      "email": "lopez@thesalt.com",
+      "password": "8c57c8cf81d3b2d50c1df67348bea62dd7ce51f574f36cb49eb5df637973ad71",
+      "id": 1633959247135
+    },
+    {
+      "email": "lopez@thehashedandsalted.com",
+      "password": "$2a$10$ALlR2UDe1PXZLBOKxb9NfuHZU1H8ZmoihrBvMGHWMLi.abepuo5cC",
+      "id": 1633960232082
+    },
+    {
+      "email": "lopez@async.com",
+      "password": "$2a$10$njH2ezdGaGQwdWKULgH/uOYeJY74sVH1Xhn9gFEhW8yHMp6hkuht6",
+      "id": 1633960456289
+    },
+    {
+      "email": "lopez@await.com",
+      "password": "$2a$10$yBhvnxsdfn5x49sAMe0ve.Sx7IOG.x.IBZZvV.nHuxYWPuZew/5Tm",
+      "id": 1633960723577
+    }
+  ]
+}
