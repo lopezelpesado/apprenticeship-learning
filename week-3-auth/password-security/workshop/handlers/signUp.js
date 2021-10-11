@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 function get(request, response) {
-	response.send(`
+	response.send(/*html*/ `
     <h1>Create an account</h1>
     <form action="sign-up" method="POST">
       <label for="email">Email</label>

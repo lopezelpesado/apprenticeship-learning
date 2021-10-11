@@ -29,6 +29,11 @@
       "email": "lopez@await.com",
       "password": "$2a$10$yBhvnxsdfn5x49sAMe0ve.Sx7IOG.x.IBZZvV.nHuxYWPuZew/5Tm",
       "id": 1633960723577
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$EzTJxA4FiLtMfbjkf5Tmle19RV746vVnCTEZQK5ZKVdsKNMMjvnHe",
+      "id": 1633962027384
     }
   ]
 }
