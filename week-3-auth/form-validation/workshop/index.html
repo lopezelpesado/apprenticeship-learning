@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Learn form validation</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Create an account</h1>
-    <form>
-      <label for="email">Email</label>
-      <input id="email" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Learn form validation</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<h1>Create an account</h1>
+		<form>
+			<label for="email">Email<span aria-hidden="true">*</span></label>
+			<input id="email" type="email" required aria-describedby="emailError" />
+			<div id="emailError" class="errorMessage"></div>
 
-      <label for="password">Password</label>
-      <input id="password" />
+			<label for="password">Password<span aria-hidden="true">*</span></label>
+			<p id="passwordRequirements">
+				Your password must contain at least one number, and be at least 8
+				characters long.
+			</p>
+			<input
+				id="password"
+				type="password"
+				aria-describedby="passwordRequirements passwordError"
+				required
+				minlength="8"
+				pattern=".*\d.*"
+			/>
+			<div id="passwordError" class="errorMessage"></div>
 
-      <button>Sign up</button>
-    </form>
-    <script src="index.js"></script>
-  </body>
+			<button>Sign up</button>
+		</form>
+		<script src="index.js"></script>
+	</body>
 </html>
