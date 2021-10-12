@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "dev": "nodemon workshop/server.js",
+    "dev": "nodemon -L workshop/server.js",
     "start": "node workshop/server.js",
     "test:one": "node tests/one.js | tap-spec",
     "test:two": "node tests/two.js | tap-spec",
