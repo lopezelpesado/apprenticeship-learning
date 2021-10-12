@@ -27,21 +27,27 @@ label {
 
 input {
 	border-radius: 5px;
+	border-style: solid;
+	border-color: hsl(280, 15%, 25%);
 	width: 100%;
 }
 
 input[aria-invalid="true"] {
-	border-radius: 5px;
+	border-radius: 2px;
 	border-style: solid;
 	border-color: rgb(255, 0, 0);
 }
 
 button {
-	border-radius: 5px;
+	border-radius: 2px;
+	text-align: center;
 	border-style: solid;
+	border-color: hsl(280, 15%, 25%);
+	background: white;
 	margin-top: 1rem;
+	padding: 0.3em;
 }
 
-.errorMessage {
+.redText {
 	color: red;
 }

@@ -9,11 +9,15 @@
 	<body>
 		<h1>Create an account</h1>
 		<form>
-			<label for="email">Email<span aria-hidden="true">*</span></label>
+			<label for="email"
+				>Email<span aria-hidden="true" class="redText">*</span></label
+			>
 			<input id="email" type="email" required aria-describedby="emailError" />
-			<div id="emailError" class="errorMessage"></div>
+			<div id="emailError" class="redText"></div>
 
-			<label for="password">Password<span aria-hidden="true">*</span></label>
+			<label for="password"
+				>Password<span aria-hidden="true" class="redText">*</span></label
+			>
 			<p id="passwordRequirements">
 				Your password must contain at least one number, and be at least 8
 				characters long.
@@ -26,7 +30,7 @@
 				minlength="8"
 				pattern=".*\d.*"
 			/>
-			<div id="passwordError" class="errorMessage"></div>
+			<div id="passwordError" class="redText"></div>
 
 			<button>Sign up</button>
 		</form>
