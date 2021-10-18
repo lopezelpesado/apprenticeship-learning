@@ -1,6 +1,9 @@
-const crypto = require("crypto");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const model = require("./database/model.js");
+const checkAuth = require("./middleware/checkAuth.js");
+const handleErrors = require("./middleware/handleErrors.js");
+const cookieChecker = require("./middleware/cookieChecker.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -12,34 +15,9 @@ const server = express();
 server.use(cookieParser(SECRET));
 server.use(express.urlencoded({ extended: false }));
 
-server.use((req, res, next) => {
-	const sid = req.signedCookies.sid;
-	const user = sessions[sid];
-	if (user) {
-		req.session = user;
-	}
-	next();
-});
-
-const checkAuth = (req, res, next) => {
-	const user = req.session;
-	if (user) {
-		next();
-	} else {
-		res.status(401).send(/*html*/ `
-    <h1>You need to <a href="/log-in">log in</a> first 🛑</h1>
-    `);
-	}
-};
-
-function handleErrors(error, req, res, next) {
-	console.log(error);
-	const status = error.status || 500;
-	res.status(status).send(/*html*/ `<h1>Oh god, you broke it</h1>`);
-}
+server.use(cookieChecker);
 
 // this should really be in a database
-let sessions = {};
 
 server.get("/", (req, res) => {
 	const user = req.session;
@@ -69,20 +47,19 @@ server.get("/log-in", (req, res) => {
 
 server.post("/log-in", (req, res) => {
 	const newUser = req.body;
-	const sid = crypto.randomBytes(18).toString("base64");
+	const sid = model.createSession(newUser);
 	res.cookie("sid", sid, {
 		signed: true,
 		httpOnly: true,
 		sameSite: "lax",
 		maxAge: 600000,
 	});
-	sessions[sid] = newUser;
 	res.redirect("/profile");
 });
 
 server.post("/log-out", (req, res) => {
 	const sid = req.signedCookies.sid;
-	delete sessions[sid];
+	model.deleteSession(sid);
 	res.clearCookie("sid");
 	res.redirect("/");
 });
