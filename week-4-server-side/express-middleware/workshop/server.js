@@ -12,28 +12,36 @@ const server = express();
 server.use(cookieParser(SECRET));
 server.use(express.urlencoded({ extended: false }));
 
+server.use((req, res, next) => {
+	const sid = req.signedCookies.sid;
+	const user = sessions[sid];
+	if (user) {
+		req.session = user;
+	}
+	next();
+});
+
 // this should really be in a database
 let sessions = {};
 
 server.get("/", (req, res) => {
-  const sid = req.signedCookies.sid;
-  const user = sessions[sid];
-  if (user) {
-    res.send(`
+	const user = req.session;
+	if (user) {
+		res.send(`
       <h1>Hello ${user.email}</h1>
       <form method="post" action="/log-out">
         <button>Log out</button>
       </form>
     `);
-  } else {
-    // no point keeping cookie if it doesn't match any saved sessions
-    res.clearCookie("sid");
-    res.send(`<h1>Hello world</h1><a href="/log-in">Log in</a>`);
-  }
+	} else {
+		// no point keeping cookie if it doesn't match any saved sessions
+		res.clearCookie("sid");
+		res.send(`<h1>Hello world</h1><a href="/log-in">Log in</a>`);
+	}
 });
 
 server.get("/log-in", (req, res) => {
-  res.send(`
+	res.send(`
     <h1>Log in</h1>
     <form action="/log-in" method="POST">
       <label for="email">Email</email>
@@ -43,41 +51,39 @@ server.get("/log-in", (req, res) => {
 });
 
 server.post("/log-in", (req, res) => {
-  const newUser = req.body;
-  const sid = crypto.randomBytes(18).toString("base64");
-  res.cookie("sid", sid, {
-    signed: true,
-    httpOnly: true,
-    sameSite: "lax",
-    maxAge: 600000,
-  });
-  sessions[sid] = newUser;
-  res.redirect("/profile");
+	const newUser = req.body;
+	const sid = crypto.randomBytes(18).toString("base64");
+	res.cookie("sid", sid, {
+		signed: true,
+		httpOnly: true,
+		sameSite: "lax",
+		maxAge: 600000,
+	});
+	sessions[sid] = newUser;
+	res.redirect("/profile");
 });
 
 server.post("/log-out", (req, res) => {
-  const sid = req.signedCookies.sid;
-  delete sessions[sid];
-  res.clearCookie("sid");
-  res.redirect("/");
+	const sid = req.signedCookies.sid;
+	delete sessions[sid];
+	res.clearCookie("sid");
+	res.redirect("/");
 });
 
 server.get("/profile", (req, res) => {
-  const sid = req.signedCookies.sid;
-  const user = sessions[sid];
-  res.send(`<h1>Hello ${user.email}</h1>`);
+	const user = req.session;
+	res.send(`<h1>Hello ${user.email}</h1>`);
 });
 
 server.get("/profile/settings", (req, res) => {
-  const sid = req.signedCookies.sid;
-  const user = sessions[sid];
-  res.send(`<h1>Settings for ${user.email}</h1>`);
+	const user = req.session;
+	res.send(`<h1>Settings for ${user.email}</h1>`);
 });
 
 server.get("/error", (req, res, next) => {
-  const fakeError = new Error("uh oh");
-  fakeError.status = 400;
-  next(fakeError);
+	const fakeError = new Error("uh oh");
+	fakeError.status = 400;
+	next(fakeError);
 });
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

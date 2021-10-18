@@ -5,7 +5,7 @@
   "main": "workshop/server.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon workshop/server.js"
+    "dev": "nodemon -L workshop/server.js"
   },
   "keywords": [],
   "author": "",
