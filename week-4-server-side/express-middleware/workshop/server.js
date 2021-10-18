@@ -21,6 +21,23 @@ server.use((req, res, next) => {
 	next();
 });
 
+const checkAuth = (req, res, next) => {
+	const user = req.session;
+	if (user) {
+		next();
+	} else {
+		res.status(401).send(/*html*/ `
+    <h1>You need to <a href="/log-in">log in</a> first 🛑</h1>
+    `);
+	}
+};
+
+function handleErrors(error, req, res, next) {
+	console.log(error);
+	const status = error.status || 500;
+	res.status(status).send(/*html*/ `<h1>Oh god, you broke it</h1>`);
+}
+
 // this should really be in a database
 let sessions = {};
 
@@ -70,20 +87,22 @@ server.post("/log-out", (req, res) => {
 	res.redirect("/");
 });
 
-server.get("/profile", (req, res) => {
+server.get("/profile", checkAuth, (req, res) => {
 	const user = req.session;
 	res.send(`<h1>Hello ${user.email}</h1>`);
 });
 
-server.get("/profile/settings", (req, res) => {
+server.get("/profile/settings", checkAuth, (req, res) => {
 	const user = req.session;
 	res.send(`<h1>Settings for ${user.email}</h1>`);
 });
 
 server.get("/error", (req, res, next) => {
 	const fakeError = new Error("uh oh");
-	fakeError.status = 400;
+	fakeError.status = 403;
 	next(fakeError);
 });
+
+server.use(handleErrors);
 
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
