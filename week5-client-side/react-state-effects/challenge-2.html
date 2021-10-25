@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="utf-8" />
-  <title>Component Proponent | FAC React</title>
+	<meta charset="utf-8" />
+	<title>Component Proponent | FAC React</title>
 
-  <body>
-    <!-- These scripts will make React and ReactDOM globally available. -->
-    <script src="https://unpkg.com/react@%5E17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@%5E17/umd/react-dom.development.js"></script>
-    <!-- This will let us write JSX and ES6 in a script tag with a special type of "text/babel" -->
-    <script src="https://unpkg.com/babel-standalone@%5E6/babel.js"></script>
+	<body>
+		<!-- These scripts will make React and ReactDOM globally available. -->
+		<script src="https://unpkg.com/react@%5E17/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@%5E17/umd/react-dom.development.js"></script>
+		<!-- This will let us write JSX and ES6 in a script tag with a special type of "text/babel" -->
+		<script src="https://unpkg.com/babel-standalone@%5E6/babel.js"></script>
 
-    <div id="root"></div>
+		<div id="root"></div>
 
-    <script type="text/babel">
-      const root = document.getElementById("root");
+		<script type="text/babel">
+			const root = document.getElementById("root");
 
-      function Toggle(props) {
-        const [open, setOpen] = React.useState(false);
-        return (
-          <div>
-            <button onClick={() => setOpen(!open)}>Toggle</button>
-            {open ? <div>{props.children}</div> : null}
-          </div>
-        );
-      }
+			function Toggle(props) {
+				const [open, setOpen] = React.useState(false);
+				React.useEffect(() => {
+					document.title = open ? "Tracking Mouse" : "Tracking Off";
+				}, [open]);
+				return (
+					<div>
+						<button onClick={() => setOpen(!open)}>Toggle</button>
+						{open ? <div>{props.children}</div> : null}
+					</div>
+				);
+			}
 
-      function App() {
-        return <Toggle>This text is hidden until the button is clicked</Toggle>;
-      }
+			function MousePosition() {
+				const [x, setX] = React.useState(100);
+				const [y, setY] = React.useState(100);
+				React.useEffect(() => {
+					const handleMouseMove = (event) => {
+						setX(event.x);
+						setY(event.y);
+					};
+					window.addEventListener("mousemove", handleMouseMove);
 
-      ReactDOM.render(<App />, root);
-    </script>
-  </body>
+					function cleanup() {
+						window.removeEventListener("mousemove", handleMouseMove);
+					}
+
+					return cleanup;
+				}, []);
+
+				return (
+					<p>
+						Mouse X: {x}, Mouse Y: {y}
+					</p>
+				);
+			}
+
+			function App() {
+				return (
+					<Toggle>
+						<MousePosition />
+					</Toggle>
+				);
+			}
+
+			ReactDOM.render(<App />, root);
+		</script>
+	</body>
 </html>
