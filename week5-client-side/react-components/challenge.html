@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta charset="utf-8" />
-  <title>Component Proponent | FAC React</title>
+	<meta charset="utf-8" />
+	<title>Component Proponent | FAC React</title>
 
-  <body>
-    <!-- These scripts will make React and ReactDOM globally available. -->
-    <script src="https://unpkg.com/react@%5E17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@%5E17/umd/react-dom.development.js"></script>
-    <!-- This will let us write JSX and ES6 in a script tag with a special type of "text/babel" -->
-    <script src="https://unpkg.com/babel-standalone@%5E6/babel.js"></script>
+	<body>
+		<!-- These scripts will make React and ReactDOM globally available. -->
+		<script src="https://unpkg.com/react@%5E17/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@%5E17/umd/react-dom.development.js"></script>
+		<!-- This will let us write JSX and ES6 in a script tag with a special type of "text/babel" -->
+		<script src="https://unpkg.com/babel-standalone@%5E6/babel.js"></script>
 
-    <div id="root"></div>
+		<div id="root"></div>
 
-    <script type="text/babel">
-      const root = document.getElementById("root");
+		<script type="text/babel">
+			const root = document.getElementById("root");
 
-      function Title(props) {
-        return <h1>{props.children}</h1>;
-      }
+			function Card(props) {
+				return (
+					<React.Fragment>
+						<h2>{props.title}</h2>
+						<img src={props.image} alt={props.alt} width={props.width} />
+						<p>{props.children}</p>
+					</React.Fragment>
+				);
+			}
 
-      function Page(props) {
-        return <div className="page">{props.children}</div>;
-      }
+			function Title(props) {
+				return <h1>{props.children}</h1>;
+			}
 
-      function App() {
-        return (
-          <Page>
-            <Title>Hello world!</Title>
-            <p>Welcome to my page</p>
-          </Page>
-        );
-      }
+			function Page(props) {
+				return <div className='page'>{props.children}</div>;
+			}
 
-      ReactDOM.render(<App />, root);
-    </script>
-  </body>
+			function App() {
+				return (
+					<Page>
+						<Title>Tasty Burgers!</Title>
+						<Card
+							title='Royale with Cheese'
+							image='https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/5:4/w_3129,h_2503,c_limit/Smashburger-recipe-120219.jpg'
+							alt='A Royale with Cheese'
+							width='400'
+						>
+							The cornerstone of any nutritious breakfast
+						</Card>
+					</Page>
+				);
+			}
+
+			ReactDOM.render(<App />, root);
+		</script>
+	</body>
 </html>
