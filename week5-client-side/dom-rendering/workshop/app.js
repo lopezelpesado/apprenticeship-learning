@@ -4,27 +4,24 @@ import dogData from "./dogs.js";
 // 	"dogListItemTemplate"
 // ).content;
 
-const dogListItemTemplate = document.createElement("template");
-dogListItemTemplate.innerHTML = /* html */ `
-        <li>
-            <h2></h2>
-            <img src="" alt="" />
-        </li>
-    `;
+import dogListItemTemplate from "./templates/dogListItemTemplate.js";
+import dogListTemplate from "./templates/dogListTemplate.js";
 
 const dogListItems = dogData.map((dog) => {
 	const dogListItem = dogListItemTemplate.content.cloneNode(true);
 	dogListItem.querySelector("h2").textContent = dog.name;
 	dogListItem.querySelector("img").src = dog.image;
+	dogListItem.querySelector("p").style.display = "none";
+	dogListItem
+		.querySelector("button")
+		.addEventListener(
+			"click",
+			(event) => (event.target.nextElementSibling.style.display = "block")
+		);
 	return dogListItem;
 });
 
 // const dogListTemplate = document.getElementById("dogListTemplate").content;
-const dogListTemplate = document.createElement("template");
-dogListTemplate.innerHTML = /* html */ `
-        <h1>All the dogs</h1>
-        <ul></ul>
-    `;
 
 const dogList = dogListTemplate.content.cloneNode(true);
 dogList.querySelector("ul").append(...dogListItems);
