@@ -1,0 +1,25 @@
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+img {
+	width: 60ch;
+	max-width: 90vw;
+}
+
+body {
+	margin: auto;
+	max-width: 100ch;
+	text-align: center;
+	font-family: fantasy;
+}
+
+body > * {
+	margin: inherit;
+	text-align: inherit;
+}
