@@ -1,18 +1,32 @@
 import dogData from "./dogs.js";
 
-const dogListItemTemplate = document.getElementById(
-	"dogListItemTemplate"
-).content;
+// const dogListItemTemplate = document.getElementById(
+// 	"dogListItemTemplate"
+// ).content;
+
+const dogListItemTemplate = document.createElement("template");
+dogListItemTemplate.innerHTML = /* html */ `
+        <li>
+            <h2></h2>
+            <img src="" alt="" />
+        </li>
+    `;
 
 const dogListItems = dogData.map((dog) => {
-	const dogListItem = dogListItemTemplate.cloneNode(true);
+	const dogListItem = dogListItemTemplate.content.cloneNode(true);
 	dogListItem.querySelector("h2").textContent = dog.name;
 	dogListItem.querySelector("img").src = dog.image;
 	return dogListItem;
 });
 
-const dogListTemplate = document.getElementById("dogListTemplate").content;
-const dogList = dogListTemplate.cloneNode(true);
+// const dogListTemplate = document.getElementById("dogListTemplate").content;
+const dogListTemplate = document.createElement("template");
+dogListTemplate.innerHTML = /* html */ `
+        <h1>All the dogs</h1>
+        <ul></ul>
+    `;
+
+const dogList = dogListTemplate.content.cloneNode(true);
 dogList.querySelector("ul").append(...dogListItems);
 
 document.getElementById("app").append(dogList);
