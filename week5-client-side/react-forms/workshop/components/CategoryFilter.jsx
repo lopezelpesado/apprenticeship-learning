@@ -14,8 +14,8 @@ const categories = [
 function CategoryFilter({ category, setCategory }) {
 	return (
 		<fieldset>
-			{categories.map((item) => (
-				<label htmlFor={item}>
+			{categories.map((item, index) => (
+				<label htmlFor={item} key={index}>
 					{item[0].toUpperCase() + item.slice(1)}
 					<input
 						type='radio'
