@@ -1,4 +1,5 @@
 import React from "react";
+import ReposList from "./ReposList";
 
 const url = "https://api.github.com/users/";
 
@@ -24,6 +25,10 @@ function Profile({ username }) {
 					width='128'
 					height='128'
 				/>
+				<h2>Repos</h2>
+				<ul>
+					<ReposList url={profile.repos_url} />
+				</ul>
 			</React.Fragment>
 		);
 	}
