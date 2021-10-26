@@ -55,13 +55,15 @@ function App() {
 			<section className='dishes'>
 				<h2>Dishes</h2>
 				<ul className='grid'>
-					{dishes.map((dish) => (
-						<li key={dish.id} className='card'>
-							<h3>{dish.name}</h3>
-							<p>{dish.description}</p>
-							<b>£{dish.price}</b>
-						</li>
-					))}
+					{dishes
+						.filter((dish) => dish.price >= min && dish.price <= max)
+						.map((dish) => (
+							<li key={dish.id} className='card'>
+								<h3>{dish.name}</h3>
+								<p>{dish.description}</p>
+								<b>£{dish.price}</b>
+							</li>
+						))}
 				</ul>
 			</section>
 		</main>
