@@ -14,6 +14,7 @@ const categories = [
 function CategoryFilter({ category, setCategory }) {
 	return (
 		<fieldset>
+			<legend>Category</legend>
 			{categories.map((item, index) => (
 				<label htmlFor={item} key={index}>
 					{item[0].toUpperCase() + item.slice(1)}

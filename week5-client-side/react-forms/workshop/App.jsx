@@ -2,11 +2,13 @@ import React from "react";
 import DishList from "./components/DishList";
 import PriceFilter from "./components/PriceFilter";
 import CategoryFilter from "./components/CategoryFilter";
+import DishSearch from "./components/DishSearch";
 
 function App() {
 	const [min, setMin] = React.useState(0);
 	const [max, setMax] = React.useState(0);
 	const [category, setCategory] = React.useState("burger");
+	const [searchString, setSearchString] = React.useState("");
 
 	return (
 		<main>
@@ -15,6 +17,10 @@ function App() {
 				<form>
 					<PriceFilter min={min} setMin={setMin} max={max} setMax={setMax} />
 					<CategoryFilter category={category} setCategory={setCategory} />
+					<DishSearch
+						searchString={searchString}
+						setSearchString={setSearchString}
+					/>
 				</form>
 			</section>
 			<section className='dishes'>
