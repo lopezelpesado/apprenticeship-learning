@@ -1,5 +1,6 @@
 import React from "react";
-import dishes from "../data";
+import DishList from "./components/DishList";
+import PriceFilter from "./components/PriceFilter";
 
 // const categories = [
 //   "all",
@@ -21,50 +22,12 @@ function App() {
 			<section className='filters'>
 				<h1>Burger Place</h1>
 				<form>
-					<fieldset>
-						<legend>Price</legend>
-						<label htmlFor='min-price'>
-							Min Price
-							<input
-								type='range'
-								name='min-price'
-								id='min-price'
-								min='0.5'
-								max='9'
-								step='0.25'
-								value={min}
-								onChange={(event) => setMin(event.target.value)}
-							/>
-						</label>
-						<label htmlFor='max-price'>
-							Max Price
-							<input
-								type='range'
-								name='max-price'
-								id='max-price'
-								min='0.5'
-								max='9'
-								step='0.25'
-								value={max}
-								onChange={(event) => setMax(event.target.value)}
-							/>
-						</label>
-					</fieldset>
+					<PriceFilter min={min} setMin={setMin} max={max} setMax={setMax} />
 				</form>
 			</section>
 			<section className='dishes'>
 				<h2>Dishes</h2>
-				<ul className='grid'>
-					{dishes
-						.filter((dish) => dish.price >= min && dish.price <= max)
-						.map((dish) => (
-							<li key={dish.id} className='card'>
-								<h3>{dish.name}</h3>
-								<p>{dish.description}</p>
-								<b>£{dish.price}</b>
-							</li>
-						))}
-				</ul>
+				<DishList min={min} max={max} />
 			</section>
 		</main>
 	);
