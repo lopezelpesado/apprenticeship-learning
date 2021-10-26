@@ -6,8 +6,8 @@ import DishSearch from "./components/DishSearch";
 
 function App() {
 	const [min, setMin] = React.useState(0);
-	const [max, setMax] = React.useState(0);
-	const [category, setCategory] = React.useState("burger");
+	const [max, setMax] = React.useState(9);
+	const [category, setCategory] = React.useState("all");
 	const [searchString, setSearchString] = React.useState("");
 
 	return (
