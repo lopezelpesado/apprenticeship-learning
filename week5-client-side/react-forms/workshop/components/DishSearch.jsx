@@ -9,7 +9,10 @@ function DishSearch({ searchString, setSearchString }) {
 				type='text'
 				name='search'
 				id='search'
-				onChange={(event) => setSearchString(event.target.value)}
+				value={searchString}
+				onChange={(event) =>
+					setSearchString(event.target.value.toLocaleLowerCase())
+				}
 			/>
 		</fieldset>
 	);

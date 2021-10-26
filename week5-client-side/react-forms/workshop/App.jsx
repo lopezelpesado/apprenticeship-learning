@@ -25,7 +25,12 @@ function App() {
 			</section>
 			<section className='dishes'>
 				<h2>Dishes</h2>
-				<DishList min={min} max={max} category={category} />
+				<DishList
+					min={min}
+					max={max}
+					category={category}
+					searchString={searchString}
+				/>
 			</section>
 		</main>
 	);
