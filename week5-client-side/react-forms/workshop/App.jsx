@@ -13,7 +13,7 @@ function App() {
 	return (
 		<main>
 			<section className='filters'>
-				<h1>Burger Place</h1>
+				<h1>Big Kahuna Burger</h1>
 				<form>
 					<PriceFilter min={min} setMin={setMin} max={max} setMax={setMax} />
 					<CategoryFilter category={category} setCategory={setCategory} />
